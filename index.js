@@ -136,6 +136,10 @@
     if (item.url.match('/pull/[0-9]+/files/')) {
         return 'New commit pushed to PR'
     }
+
+    if (item.title.startsWith('GH PR Audit Action workflow run cancelled')) {
+        return 'GH PR Audit Action workflow run cancelled, probably due to another run taking precedence'
+    }
   }
 
   function autoMarkDone() {

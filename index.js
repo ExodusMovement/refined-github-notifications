@@ -142,6 +142,14 @@
     }
   }
 
+  function isInboxView() {
+      const query = new URLSearchParams(window.location.search).get('query')
+      if (!query) return true
+
+      const conditions = query.split(' ')
+      return ['is:done', 'is:saved'].every((condition) => !conditions.includes(condition))
+  }
+
   function autoMarkDone() {
     const items = getIssues()
 
@@ -199,7 +207,7 @@ reason: ${reason}`)
       dedupeTab()
       externalize()
       removeBotAvatars()
-      autoMarkDone()
+      if (isInboxView()) autoMarkDone()
     }
   }
 

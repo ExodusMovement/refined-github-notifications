@@ -137,7 +137,7 @@
         return 'New commit pushed to PR'
     }
 
-    if (item.title.startsWith('GH PR Audit Action workflow run cancelled')) {
+    if (item.type === 'ci activity' && /workflow run cancell?ed/.test(item.title)) {
         return 'GH PR Audit Action workflow run cancelled, probably due to another run taking precedence'
     }
   }

@@ -137,12 +137,15 @@
         return 'New commit pushed to PR'
     }
 
-    if (item.type === 'ci activity' && /workflow run cancell?ed/.test(item.title)) {
+    if (item.type === 'ci activity') {
+      if (/workflow run cancell?ed/.test(item.title))
         return 'GH PR Audit Action workflow run cancelled, probably due to another run taking precedence'
-    }
 
-    if (item.type === 'ci activity' && item.title.includes('dependency audits workflow run failed')) {
+      if (item.title.includes('dependency audits workflow run failed'))
         return 'dependency audits workflow run failed'
+
+      if (/workflow run, Attempt #\d+ succeeded/.test(item.title))
+        return 'previously failed workflow run succeeded'
     }
   }
 
